@@ -8,7 +8,7 @@
 
 
 
-$form = new CForm(new CFormBoostrapRenderer());
+$form = new CForm(new CFormBootstrapRenderer());
 $form->loadFromFile ("demo_usage.php");
 
 $form->setAction("index.php")->setMethod("POST")

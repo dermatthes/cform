@@ -8,13 +8,10 @@
 
 
 return [
-    ["input", "type"=>"text", "id"=>"1234", "@label"=>"Name", "@subLabel"=>"Bitte Name eingeben", "placeholder"=>"Name"],
+        ["input", "type" => "text", "id" => "1234", "@label" => "Name", "@subLabel" => "Bitte Name eingeben", "list" => "datalist", "placeholder" => "Name"],
 
-    ["select", "id"=>"12345", "label"=>"Titel", "options"=>[
-            ["key1", "Display value for key1"],
-            ["key2", "Display value for key2"]
+        ["select", "id" => "12345", "@label" => "Titel", "options" => [
+                "key1" => "Display value for key1",
+                "key2" => "Display value for key2"]
         ]
-    ]
-
-
 ];
