@@ -1,13 +1,11 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: matthes
  * Date: 02.10.15
  * Time: 14:34
  */
-
-require( '../autoload.php' );
-
 class CForm {
 
     /**
@@ -31,11 +29,18 @@ class CForm {
     protected $mItems;
 
     /**
+     * @var CFormElement
+     */
+    protected $mCurElement;
+
+
+    /**
      * @param CFormRenderer $renderer
      */
     public function __construct(CFormRenderer $renderer) {
         $this->mRenderer = $renderer;
     }
+
 
     /**
      * @param $action
@@ -75,70 +80,78 @@ class CForm {
         return $this;
     }
 
+
     /**
      * @param $tag
      * @param array $vals
      * @param null $displayVal
      * @return $this
      */
-    public function addItem($tag, array $vals, $displayVal = null) {
-        $this->mItems[] = new CFormElement($tag, $vals, $displayVal);
+    public function addItem($tag, array $vals = null, $displayVal = null) {
+        $this->mCurElement = new CFormElement($tag, $vals, $displayVal);
+        $this->mItems[] = $this->mCurElement;
         return $this;
     }
 
-    public function addInput(array $vals) {
+    public function addInput(array $vals = null) {
         $this->addItem("input", $vals);
         return $this;
     }
 
-    public function addSelect(array $vals) {
+    public function addSelect(array $vals = null) {
         $this->addItem("select", $vals);
         return $this;
     }
 
-    public function addTextarea(array $vals, $displayVal = null) {
+    public function addTextarea(array $vals = null, $displayVal = null) {
         $this->addItem("textarea", $vals, $displayVal);
         return $this;
     }
 
-    public function addButton(array $vals, $displayVal = null) {
+    public function addButton(array $vals = null, $displayVal = null) {
         $this->addItem("button", $vals, $displayVal);
         return $this;
     }
 
-    public function addOutput(array $vals, $displayVal = null) {
+    public function addOutput(array $vals = null, $displayVal = null) {
         $this->addItem("output", $vals, $displayVal);
         return $this;
+    }
+
+    public function addHTMLCode($code) {
+        $this->addItem("html", [], $code);
+        return $this;
+    }
+
+    public function setAttr($name, $val) {
+        if ($this->mCurElement == null) {
+            throw new Exception("No element to add attribute to.");
+        }
+        $this->mCurElement->setAttribute($name, $val);
+        return $this;
+    }
+
+    public function reset() {
+        $this->mCurElement = null;
+        $this->mItems = [];
     }
 
     public function out() {
         echo $this->mRenderer->render($this->mAction, $this->mMethod, $this->mItems);
     }
+
+    public function outPart() {
+        echo $this->mRenderer->render_standalone($this->mItems);
+        $this->reset();
+    }
+
 } ?>
 
 <html>
 <head>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
-<div class="row">
-    <div class="col-lg-8">
-        <?php $cform = new CForm(new CFormBootstrapRenderer());
-        $cform->setAction("#")->setMethod("get")->loadFromFile("../doc/form.inc.php")
-              ->addButton(["type" => "submit"], "Senden")
-              ->addSelect(["@label" => "Noch ein Select", "id" => "123", "options" => ["1" => "Wahl 1", "2" => "Wahl 2", "3" => "Wahl 3"]])
-              ->addTextarea(["id" => "textarea", "rows" => "4", "cols" => "2", "@label" => "Textbereich"])
-              ->addOutput(["name" => "x", "for" => "cb 1234", "@label" => "Output"])
-              ->addInput(["type" => "radio", "id" => "rad", "value" => "Radiobutton", "@label" => "Radio"])
-              ->addItem("keygen", ["name" => "security", "@label" => "Keygen"])
-              ->addItem("datalist", ["id" => "datalist", "options" => ["val1" => "Name 1", "val2" => "Name 2"]])
-              ->addInput(["type" => "checkbox", "id" => "cb", "@label" => "Checken"]);
-        $cform->out(); ?>
-    </div>
-</div>
+
 </body>
 </html>

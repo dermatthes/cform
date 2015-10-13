@@ -19,9 +19,23 @@ class CFormBootstrapRenderer implements CFormRenderer {
     public function render($action, $method, array $items) {
         $form = "<form class=\"form-horizontal\" action=\"{$action}\" method=\"{$method}\">\n";
         array_push($this->mToClose, "</form>\n");
+        return $form . $this->render_standalone($items) . array_pop($this->mToClose);
+    }
+
+    /**
+     * @param array $items
+     * @return string
+     */
+    public function render_standalone(array $items) {
+        $form = "";
         foreach ($items as $item) {
-            $tag = $item->tag;
+            $tag = strtolower($item->tag);
             $text = $item->displayValue;
+
+            if ($tag == "html") {
+                $form .= $text;
+                continue;
+            }
 
             $label = "";
             if ($item->label != null) {
@@ -39,7 +53,7 @@ class CFormBootstrapRenderer implements CFormRenderer {
                 if (array_key_exists('id', $item->attributes)) {
                     $sublabel .= "for=\"{$item->attributes['id']}\"";
                 }
-                $sublabel .= "class=\"control-label col-md-3\">{$sublab}</label>\n";
+                $sublabel .= "class=\"control-label col-md-1\">{$sublab}</label>\n";
             }
 
             $options = "";
@@ -67,7 +81,7 @@ class CFormBootstrapRenderer implements CFormRenderer {
                 $container = "<div class=\"form-group\">\n";
                 array_push($this->mToClose, "</div>\n");
 
-                $elemcon = "<div class=\"col-md-6\">\n";
+                $elemcon = "<div class=\"col-md-8\">\n";
                 array_push($this->mToClose, "</div>\n");
 
                 $element .= ">";
@@ -76,7 +90,7 @@ class CFormBootstrapRenderer implements CFormRenderer {
                 $container = "<div class=\"form-group\">\n";
                 array_push($this->mToClose, "</div>\n");
 
-                $elemcon = "<div class=\"col-md-6\">\n";
+                $elemcon = "<div class=\"col-md-8\">\n";
                 array_push($this->mToClose, "</div>\n");
 
                 $element .= " class=\"form-control\">";
@@ -85,7 +99,6 @@ class CFormBootstrapRenderer implements CFormRenderer {
 
             $form .= $container . $label . $elemcon . $element . $options . $text . array_pop($this->mToClose) . array_pop($this->mToClose) . $sublabel . array_pop($this->mToClose);
         }
-        return $form . array_pop($this->mToClose);
+        return $form;
     }
-
 }

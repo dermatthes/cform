@@ -6,10 +6,8 @@
  * Time: 13:32
  */
 
-
-
 $form = new CForm(new CFormBootstrapRenderer());
-$form->loadFromFile ("demo_usage.php");
+$form->loadFromFile ("form.inc.php");
 
 $form->setAction("index.php")->setMethod("POST")
     ->addInputText("name1")
@@ -21,6 +19,5 @@ $form->setAction("index.php")->setMethod("POST")
         ->setOptions([])
         ->setLABEL("Anrede bitte")
     ->addInputPassword("name");
-
 
 $form->out();

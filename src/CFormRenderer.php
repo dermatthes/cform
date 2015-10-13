@@ -10,4 +10,6 @@ interface CFormRenderer {
 
     public function render($action, $method, array $items);
 
+    public function render_standalone(array $items);
+
 }
