@@ -59,7 +59,11 @@ class CFormBootstrapRenderer implements CFormRenderer {
             $options = "";
             if (count($opts = $item->options) != 0) {
                 foreach ($opts as $key => $value) {
-                    $options .= "<option value=\"{$key}\">{$value}</option>\n";
+                    if ($item->selected == $key) {
+                        $options .= "<option value=\"{$key}\" selected=\"selected\">{$value}</option>\n";
+                    } else {
+                        $options .= "<option value=\"{$key}\">{$value}</option>\n";
+                    }
                 }
             }
 

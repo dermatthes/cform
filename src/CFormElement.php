@@ -14,6 +14,21 @@ class CFormElement {
     private $label;
     private $sublabel;
     private $options = [];
+    private $selected;
+
+    /**
+     * @return mixed
+     */
+    public function getSelected() {
+        return $this->selected;
+    }
+
+    /**
+     * @param mixed $selected
+     */
+    public function setSelected($selected) {
+        $this->selected = $selected;
+    }
 
     /**
      * @return mixed
@@ -120,6 +135,8 @@ class CFormElement {
             foreach ($val as $_key => $_value) {
                 $this->options[$_key] = $_value;
             }
+        } elseif ($key == "selected") {
+            $this->selected = $val;
         } else {
             $this->attributes[$key] = $val;
         }
