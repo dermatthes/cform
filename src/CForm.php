@@ -7,8 +7,6 @@
  * Time: 14:34
  */
 
-require( '../autoload.php' );
-
 class CForm {
 
     /**
@@ -298,6 +296,7 @@ class CForm {
      */
     public function out() {
         echo $this->mRenderer->render($this->mAction, $this->mMethod, $this->mItems);
+        $this->reset();
     }
 
     /**

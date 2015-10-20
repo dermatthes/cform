@@ -137,6 +137,8 @@ class CFormElement {
             }
         } elseif ($key == "selected") {
             $this->selected = $val;
+        } elseif ($key == "displayvalue") {
+            $this->displayValue = $val;
         } else {
             $this->attributes[$key] = $val;
         }
@@ -147,7 +149,7 @@ class CFormElement {
      * @param array $items
      * @param null $displayVal
      */
-    public function __construct($tag, array $items, $displayVal) {
+    public function __construct($tag, array $items = null, $displayVal = null) {
         $this->tag = $tag;
         $this->displayValue = $displayVal;
         if ($items != null) {

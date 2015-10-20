@@ -6,12 +6,14 @@
  * Time: 13:33
  */
 
-
 return [
-        ["input", "type" => "text", "id" => "1234", "@label" => "Name", "@subLabel" => "Bitte Name eingeben", "list" => "datalist", "placeholder" => "Name"],
+        ["input", "type" => "text", "id" => "1234", "@label" => "Name", "placeholder" => "Insert Name"],
 
-        ["select", "id" => "12345", "@label" => "Titel", "options" => [
-                "key1" => "Display value for key1",
-                "key2" => "Display value for key2"]
-        ]
+        ["select", "id" => "abcd", "@label" => "Age", "selected" => "middle", "options" => [
+                "young" => "21-35",
+                "middle" => "36-55",
+                "old" => "56-80"]
+        ],
+
+        ["button", "name" => "btn", "type" => "submit", "displayValue" => "Display"]
 ];
