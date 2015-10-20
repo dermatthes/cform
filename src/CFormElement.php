@@ -12,7 +12,6 @@ class CFormElement {
     private $displayValue;
     private $attributes = [];
     private $label;
-    private $sublabel;
     private $options = [];
     private $selected;
 
@@ -68,7 +67,7 @@ class CFormElement {
     /**
      * @param array $attributes
      */
-    public function setAttributes($attributes) {
+    public function setAttributes(array $attributes) {
         $this->attributes = $attributes;
     }
 
@@ -87,20 +86,6 @@ class CFormElement {
     }
 
     /**
-     * @return mixed
-     */
-    public function getSublabel() {
-        return $this->sublabel;
-    }
-
-    /**
-     * @param mixed $sublabel
-     */
-    public function setSublabel($sublabel) {
-        $this->sublabel = $sublabel;
-    }
-
-    /**
      * @return array
      */
     public function getOptions() {
@@ -110,7 +95,7 @@ class CFormElement {
     /**
      * @param array $options
      */
-    public function setOptions($options) {
+    public function setOptions(array $options) {
         $this->options = $options;
     }
 
@@ -128,18 +113,17 @@ class CFormElement {
             $key = substr($key, 1, strlen($key));
             if ($key == "label") {
                 $this->label = $val;
-            } elseif ($key == "sublabel") {
-                $this->sublabel = $val;
             }
         } elseif ($key == "options" || is_array($val)) {
             foreach ($val as $_key => $_value) {
                 $this->options[$_key] = $_value;
             }
-        } elseif ($key == "selected") {
-            $this->selected = $val;
         } elseif ($key == "displayvalue") {
             $this->displayValue = $val;
         } else {
+            if ($key == "value") {
+                $this->selected = $val;
+            }
             $this->attributes[$key] = $val;
         }
     }

@@ -7,9 +7,9 @@
  */
 
 return [
-        ["input", "type" => "text", "id" => "1234", "@label" => "Name", "placeholder" => "Insert Name"],
+        ["input", "type" => "text", "id" => "1234", "@label" => "Name", "value" => "Insert Name"],
 
-        ["select", "id" => "abcd", "@label" => "Age", "selected" => "middle", "options" => [
+        ["select", "id" => "abcd", "@label" => "Age", "value" => "middle", "options" => [
                 "young" => "21-35",
                 "middle" => "36-55",
                 "old" => "56-80"]

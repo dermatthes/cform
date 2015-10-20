@@ -44,16 +44,7 @@ class CFormBootstrapRenderer implements CFormRenderer {
                 if (array_key_exists('id', $item->attributes)) {
                     $label .= "for=\"{$item->attributes['id']}\"";
                 }
-                $label .= "class=\"control-label col-md-3\">{$lab}</label>\n";
-            }
-            $sublabel = "";
-            if ($item->sublabel != null) {
-                $sublab = $item->sublabel;
-                $sublabel = "<label ";
-                if (array_key_exists('id', $item->attributes)) {
-                    $sublabel .= "for=\"{$item->attributes['id']}\"";
-                }
-                $sublabel .= "class=\"control-label col-md-1\">{$sublab}</label>\n";
+                $label .= " class=\"control-label col-md-3\">{$lab}</label>\n";
             }
 
             $options = "";
@@ -90,6 +81,15 @@ class CFormBootstrapRenderer implements CFormRenderer {
 
                 $element .= ">";
                 array_push($this->mToClose, "</{$tag}>\n");
+            } elseif ($tag == "input") {
+                $container = "<div class=\"form-group\">\n";
+                array_push($this->mToClose, "</div>\n");
+
+                $elemcon = "<div class=\"col-md-8\">\n";
+                array_push($this->mToClose, "</div>\n");
+
+                $element .= " class=\"form-control\">";
+                array_push($this->mToClose, "");
             } else {
                 $container = "<div class=\"form-group\">\n";
                 array_push($this->mToClose, "</div>\n");
@@ -101,7 +101,7 @@ class CFormBootstrapRenderer implements CFormRenderer {
                 array_push($this->mToClose, "</{$tag}>\n");
             }
 
-            $form .= $container . $label . $elemcon . $element . $options . $text . array_pop($this->mToClose) . array_pop($this->mToClose) . $sublabel . array_pop($this->mToClose);
+            $form .= $container . $label . $elemcon . $element . $options . $text . array_pop($this->mToClose) . array_pop($this->mToClose) . array_pop($this->mToClose);
         }
         return $form;
     }

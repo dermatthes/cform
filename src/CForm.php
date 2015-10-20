@@ -6,7 +6,6 @@
  * Date: 02.10.15
  * Time: 14:34
  */
-
 class CForm {
 
     /**
@@ -67,6 +66,7 @@ class CForm {
         return $this;
     }
 
+
     /**
      * @param $file
      * @return $this
@@ -80,6 +80,7 @@ class CForm {
         }
         return $this;
     }
+
 
     /**
      * @param $tag
@@ -141,6 +142,7 @@ class CForm {
         return $this;
     }
 
+
     /**
      * @param $value
      * @param $display
@@ -158,21 +160,17 @@ class CForm {
     }
 
     /**
-     * Adds option which is triaged
-     *
-     * @param $value
-     * @param $display
+     * @param array $opts
      * @return $this
      * @throws Exception
      */
-    public function addOptionSelected($value, $display) {
-        if ($this->mCurElement == null) {
-            throw new Exception("No current element available");
+    public function addOptions(array $opts) {
+        foreach ($opts as $k => $v) {
+            $this->addOption($k, $v);
         }
-        $this->addOption($value, $display);
-        $this->mCurElement->setSelected($value);
         return $this;
     }
+
 
     /**
      * Inserts HTML code between form-elements
@@ -184,6 +182,7 @@ class CForm {
         $this->addItem("html", [], $code);
         return $this;
     }
+
 
     /**
      * Adds a label-element in front of HTML element
@@ -200,20 +199,6 @@ class CForm {
         return $this;
     }
 
-    /**
-     * Adds a label-element behind the HTML element
-     *
-     * @param $value
-     * @return $this
-     * @throws Exception
-     */
-    public function setSubLabel($value) {
-        if ($this->mCurElement == null) {
-            throw new Exception("No current element available.");
-        }
-        $this->mCurElement->setAttribute("@sublabel", $value);
-        return $this;
-    }
 
     /**
      * Adds an attribute to the HTML element
@@ -231,16 +216,14 @@ class CForm {
         return $this;
     }
 
+
     /**
      * @param $id
      * @return $this
      * @throws Exception
      */
     public function setId($id) {
-        if ($this->mCurElement == null) {
-            throw new Exception("No current element available.");
-        }
-        $this->mCurElement->setAttribute("id", $id);
+        $this->setAttr("id", $id);
         return $this;
     }
 
@@ -250,10 +233,7 @@ class CForm {
      * @throws Exception
      */
     public function setName($name) {
-        if ($this->mCurElement == null) {
-            throw new Exception("No current element available.");
-        }
-        $this->mCurElement->setAttribute("name", $name);
+        $this->setAttr("name", $name);
         return $this;
     }
 
@@ -263,10 +243,7 @@ class CForm {
      * @throws Exception
      */
     public function setType($type) {
-        if ($this->mCurElement == null) {
-            throw new Exception("No current element available.");
-        }
-        $this->mCurElement->setAttribute("type", $type);
+        $this->setAttr("type", $type);
         return $this;
     }
 
@@ -276,12 +253,10 @@ class CForm {
      * @throws Exception
      */
     public function setValue($value) {
-        if ($this->mCurElement == null) {
-            throw new Exception("No current element available.");
-        }
-        $this->mCurElement->setAttribute("value", $value);
+        $this->setAttr("value", $value);
         return $this;
     }
+
 
     /**
      * Resets the list of form elements
@@ -290,6 +265,7 @@ class CForm {
         $this->mCurElement = null;
         $this->mItems = [];
     }
+
 
     /**
      * Prints form
@@ -300,7 +276,8 @@ class CForm {
     }
 
     /**
-     * Prints all form elements in List without surrounding <form> tags
+     * Prints all form elements in list without surrounding <form> tags
+     * Resets all elements in list
      */
     public function outPart() {
         echo $this->mRenderer->render_standalone($this->mItems);

@@ -23,7 +23,7 @@ $form = new CForm(new CFormBootstrapRenderer());
             ->setLabel("Name")
          ->outPart();
     $form->addSelect(["@label" => "Age", "name" => "select", "id" => "abcd", "options" => ["young" => "21-35", "middle" => "36-55", "old" => "59-80"]])
-            ->addOptionSelected("middle", "36-55")
+            ->setValue("middle")
          ->addHTMLCode("<br /><br /><br /><h1>Code between...</h1>")
          ->addButton(["name" => "btn", "type" => "submit"], "Display")
          ->outPart() ?>
