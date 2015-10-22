@@ -143,6 +143,12 @@ class CForm {
     }
 
 
+    public function addDiscription($text) {
+        $this->mCurElement->setDiscription(htmlspecialchars($text));
+        return $this;
+    }
+
+
     /**
      * @param $value
      * @param $display

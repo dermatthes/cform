@@ -15,18 +15,23 @@ $form = new CForm(new CFormBootstrapRenderer());
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <form action="#" method="post">
     <h1>Example</h1><?php
     $form->addInput(["name" => "input", "id" => "1234", "type" => "text", "value" => "Insert Name"])
-            ->setLabel("Name")
+         ->setLabel("Name")->addDiscription("Dies ist ein Test")
          ->outPart();
     $form->addSelect(["@label" => "Age", "name" => "select", "id" => "abcd", "options" => ["young" => "21-35", "middle" => "36-55", "old" => "59-80"]])
-            ->setValue("middle")
+         ->setValue("middle")
          ->addHTMLCode("<br /><br /><br /><h1>Code between...</h1>")
          ->addButton(["name" => "btn", "type" => "submit"], "Display")
          ->outPart() ?>
 </form>
 </body>
+<script type="text/javascript">
+    $('[data-toggle="popover"]').popover();
+</script>
 </html>
