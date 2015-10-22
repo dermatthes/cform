@@ -58,6 +58,11 @@ class CFormBootstrapRenderer implements CFormRenderer {
                 }
             }
 
+            $infobtn = "";
+            if ($item->discription != null) {
+                $infobtn = "<a tabindex='0' role=\"button\" class=\"btn btn-default\" data-trigger='focus' data-html=\"true\" data-toggle=\"popover\" data-container=\"body\" data-content=\"{$item->discription}\"><span class=\"glyphicon glyphicon-info-sign\"></span></a>";
+            }
+
             $element = "<{$tag}";
             foreach ($item->attributes as $key => $value) {
                 $element .= " {$key}=\"{$value}\"";
@@ -101,7 +106,7 @@ class CFormBootstrapRenderer implements CFormRenderer {
                 array_push($this->mToClose, "</{$tag}>\n");
             }
 
-            $form .= $container . $label . $elemcon . $element . $options . $text . array_pop($this->mToClose) . array_pop($this->mToClose) . array_pop($this->mToClose);
+            $form .= $container . $label . $elemcon . $element . $options . $text . array_pop($this->mToClose) . array_pop($this->mToClose) . $infobtn . array_pop($this->mToClose);
         }
         return $form;
     }

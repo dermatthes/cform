@@ -12,6 +12,7 @@ class CFormElement {
     private $displayValue;
     private $attributes = [];
     private $label;
+    private $discription;
     private $options = [];
     private $selected;
 
@@ -41,6 +42,20 @@ class CFormElement {
      */
     public function setTag($tag) {
         $this->tag = $tag;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDiscription() {
+        return $this->discription;
+    }
+
+    /**
+     * @param mixed $discription
+     */
+    public function setDiscription($discription) {
+        $this->discription = $discription;
     }
 
     /**
@@ -109,6 +124,9 @@ class CFormElement {
      */
     public function setAttribute($key, $val) {
         $key = strtolower($key);
+        if (!is_array($val)) {
+            $val = htmlspecialchars($val);
+        }
         if (substr($key, 0, 1) == "@") {
             $key = substr($key, 1, strlen($key));
             if ($key == "label") {
@@ -135,7 +153,9 @@ class CFormElement {
      */
     public function __construct($tag, array $items = null, $displayVal = null) {
         $this->tag = $tag;
-        $this->displayValue = $displayVal;
+        if ($tag != "html") {
+            $this->displayValue = htmlspecialchars($displayVal);
+        }
         if ($items != null) {
             foreach ($items as $key => $value) {
                 $this->setAttribute($key, $value);
