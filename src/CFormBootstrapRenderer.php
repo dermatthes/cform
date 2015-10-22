@@ -60,7 +60,7 @@ class CFormBootstrapRenderer implements CFormRenderer {
 
             $infobtn = "";
             if ($item->discription != null) {
-                $infobtn = "<a tabindex='0' role=\"button\" class=\"btn btn-default\" data-trigger='hover' data-html=\"true\" data-toggle=\"popover\" data-container=\"body\" data-content=\"{$item->discription}\"><span class=\"glyphicon glyphicon-info-sign\"></span></a>";
+                $infobtn = "<a tabindex='0' role=\"button\" class=\"btn btn-default\" data-trigger='focus' data-html=\"true\" data-toggle=\"popover\" data-container=\"body\" data-content=\"{$item->discription}\"><span class=\"glyphicon glyphicon-info-sign\"></span></a>";
             }
 
             $element = "<{$tag}";
