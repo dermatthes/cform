@@ -24,7 +24,7 @@ class CForm {
     protected $mMethod;
 
     /**
-     * @var array
+     * @var array CFormElement
      */
     protected $mItems;
 
@@ -285,9 +285,34 @@ class CForm {
      * Prints all form elements in list without surrounding <form> tags
      * Resets all elements in list
      */
-    public function outPart() {
-        echo $this->mRenderer->render_standalone($this->mItems);
-        $this->reset();
+    public function outPart(array $ids = null) {
+        if ($ids == null) {
+            echo $this->mRenderer->render_standalone($this->mItems);
+            $this->reset();
+        } else {
+            $items = [];
+            foreach ($this->mItems as $item) {
+                $attrs = $item->getAttributes();
+                if (array_key_exists("id", $attrs) && in_array($attrs['id'], $ids)) {
+                    $items [] = $item;
+                }
+            }
+            echo $this->mRenderer->render_standalone($items);
+        }
+    }
+
+    public function outButtons() {
+        $items = [];
+        foreach ($this->mItems as $item) {
+            if ($item->getTag() == "button") {
+                $items[] = $item;
+            }
+        }
+        echo $this->mRenderer->render_standalone($items);
+    }
+
+    public function outJavaScript() {
+        echo $this->mRenderer->render_js();
     }
 
 }

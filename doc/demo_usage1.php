@@ -9,7 +9,7 @@ require( '../autoload.php' );
     <link rel="stylesheet" href="//cdn.fuman.de/bootstrapcdn/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.fuman.de/bootstrapcdn/bootstrap/3.3.4/css/bootstrap-theme.min.css">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -39,7 +39,14 @@ require( '../autoload.php' );
 
 <script language="JavaScript">
 
-    (function(){var s=document.createElement("script");s.onload=function(){bootlint.showLintReportForCurrentDocument([]);};s.src="https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js";document.body.appendChild(s)})();
+    (function () {
+        var s = document.createElement("script");
+        s.onload = function () {
+            bootlint.showLintReportForCurrentDocument([]);
+        };
+        s.src = "https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js";
+        document.body.appendChild(s)
+    })();
 </script>
 </body>
 </html>

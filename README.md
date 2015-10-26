@@ -27,6 +27,28 @@ $form->setAction("#")->setMethod("post")
 ->out();
 ```
 
+## Beispiel Laden aus Datei
+
+```
+$form = new CForm(new CFormBootstrapRenderer());
+$form->loadFromFile("form.inc.php")->out();
+```
+
+### Beispieldatei 'form.inc.php'
+```
+return [
+        ["input", "type" => "text", "id" => "1234", "@label" => "Name", "value" => "Insert Name"],
+
+        ["select", "id" => "abcd", "@label" => "Age", "value" => "middle", "options" => [
+                "young" => "21-35",
+                "middle" => "36-55",
+                "old" => "56-80"]
+        ],
+
+        ["button", "name" => "btn", "type" => "submit", "displayValue" => "Display"]
+];
+```
+
 
 ## Available Renderers
 

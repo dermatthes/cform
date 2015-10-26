@@ -22,4 +22,9 @@ interface CFormRenderer {
      */
     public function render_standalone(array $items);
 
+    /**
+     * @return mixed
+     */
+    public function render_js();
+
 }

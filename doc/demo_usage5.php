@@ -1,11 +1,13 @@
-<!doctype html><?php
+<!doctype html>
+<?php
 /**
  * Created by PhpStorm.
  * User: alina
- * Date: 19.10.15
- * Time: 14:50
+ * Date: 26.10.15
+ * Time: 11:36
  */
 require( '../autoload.php' ); ?>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -14,12 +16,9 @@ require( '../autoload.php' ); ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="//cdn.fuman.de/bootstrapcdn/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.fuman.de/bootstrapcdn/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
 </head> <?php
 
-$form = new CForm(new CFormBootstrapRenderer());
+$form = new CForm(new CFormSimpleRenderer());
 $form->setAction("#")->setMethod("get");
 
 $form->addItem("input", ["@label" => "Name", "name" => "input", "id" => "1234", "type" => "text", "value" => "Insert Name"])

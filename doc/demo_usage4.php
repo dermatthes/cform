@@ -1,3 +1,4 @@
+<!doctype html>
 <?php
 /**
  * Created by PhpStorm.
@@ -11,14 +12,16 @@ $form = new CForm(new CFormBootstrapRenderer());
 ?>
 <html>
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="//cdn.fuman.de/bootstrapcdn/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.fuman.de/bootstrapcdn/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
 </head>
 <body>
 <form action="#" method="post">
@@ -29,12 +32,19 @@ $form = new CForm(new CFormBootstrapRenderer());
     $form->addSelect(["@label" => "Age", "name" => "select", "id" => "abcd", "options" => ["young" => "21-35", "middle" => "36-55", "old" => "59-80"]])
          ->setValue("middle")
          ->addHTMLCode("<br /><br /><br /><h1>Code between...</h1>")
-         ->addButton(["name" => "btn", "type" => "submit"], "Display")
-         ->outPart() ?>
+         ->addButton(["id" => "button", "name" => "btn", "type" => "submit"], "Display")
+         ->outPart(["button"]) ?>
 </form>
-    <script language="JavaScript" src="https://maxcdn.bootstrapcdn.com/bootlint/0.12.0/bootlint.min.js"></script>
 </body>
 <script type="text/javascript">
     $('[data-toggle="popover"]').popover();
+    (function () {
+        var s = document.createElement("script");
+        s.onload = function () {
+            bootlint.showLintReportForCurrentDocument([]);
+        };
+        s.src = "https://maxcdn.bootstrapcdn.com/bootlint/latest/bootlint.min.js";
+        document.body.appendChild(s)
+    })();
 </script>
 </html>

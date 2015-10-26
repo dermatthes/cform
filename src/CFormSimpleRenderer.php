@@ -3,10 +3,10 @@
 /**
  * Created by PhpStorm.
  * User: alina
- * Date: 05.10.15
- * Time: 09:29
+ * Date: 26.10.15
+ * Time: 10:22
  */
-class CFormBootstrapRenderer implements CFormRenderer {
+class CFormSimpleRenderer implements CFormRenderer {
 
     private $mToClose = [];
 
@@ -14,28 +14,20 @@ class CFormBootstrapRenderer implements CFormRenderer {
      * @param $action
      * @param $method
      * @param array $items
-     * @return string
+     * @return mixed
      */
     public function render($action, $method, array $items) {
-        $form = "<form class=\"form-horizontal\" action=\"{$action}\" method=\"{$method}\">\n";
+        $form = "<form action=\"{$action}\" method=\"{$method}\">\n";
         array_push($this->mToClose, "</form>\n");
         return $form . $this->render_standalone($items) . array_pop($this->mToClose);
     }
 
     /**
-     * @return string
-     */
-    public function render_js() {
-        $ret = "<script type=\"text/javascript\">$('[data-toggle=\"popover\"]').popover();</script>";
-        return $ret;
-    }
-
-    /**
      * @param array $items
-     * @return string
+     * @return mixed
      */
     public function render_standalone(array $items) {
-        $form = "";
+        $form = '';
         foreach ($items as $item) {
             $tag = strtolower($item->tag);
             $text = $item->displayValue;
@@ -52,7 +44,7 @@ class CFormBootstrapRenderer implements CFormRenderer {
                 if (array_key_exists('id', $item->attributes)) {
                     $label .= "for=\"{$item->attributes['id']}\"";
                 }
-                $label .= " class=\"control-label col-md-3\">{$lab}</label>\n";
+                $label .= " class=\"label\">{$lab}</label>\n";
             }
 
             $options = "";
@@ -68,7 +60,7 @@ class CFormBootstrapRenderer implements CFormRenderer {
 
             $infobtn = "";
             if ($item->discription != null) {
-                $infobtn = "<a tabindex='0' role=\"button\" class=\"btn btn-default\" data-trigger='focus' data-html=\"true\" data-toggle=\"popover\" data-container=\"body\" data-content=\"{$item->discription}\"><span class=\"glyphicon glyphicon-info-sign\"></span></a>";
+                $infobtn = "<a tabindex='0' role=\"button\" class=\"infobutton\" data-trigger='focus' data-html=\"true\" data-toggle=\"popover\" data-container=\"body\" data-content=\"{$item->discription}\"><span class=\"\"></span></a>";
             }
 
             $element = "<{$tag}";
@@ -77,45 +69,40 @@ class CFormBootstrapRenderer implements CFormRenderer {
             }
 
             if ($tag == "button") {
-                $container = "<div class=\"navbar\">\n<div class=\"container-fluid\">\n";
-                array_push($this->mToClose, "</div>\n</div>\n");
-
-                $elemcon = "<div class=\"navbar-form navbar-right\">\n";
+                $container = "<div class=\"container\">\n";
                 array_push($this->mToClose, "</div>\n");
 
-                $element .= " class=\"btn btn-success pull-right\">";
+                $element .= " class=\"btn\">";
                 array_push($this->mToClose, "</{$tag}>\n");
             } elseif ($tag == "datalist") {
-                $container = "<div class=\"form-group\">\n";
-                array_push($this->mToClose, "</div>\n");
-
-                $elemcon = "<div class=\"col-md-8\">\n";
+                $container = "<div class=\"container\">\n";
                 array_push($this->mToClose, "</div>\n");
 
                 $element .= ">";
                 array_push($this->mToClose, "</{$tag}>\n");
             } elseif ($tag == "input") {
-                $container = "<div class=\"form-group\">\n";
+                $container = "<div class=\"container\">\n";
                 array_push($this->mToClose, "</div>\n");
 
-                $elemcon = "<div class=\"col-md-8\">\n";
-                array_push($this->mToClose, "</div>\n");
-
-                $element .= " class=\"form-control\">";
+                $element .= " class=\"formElement\">";
                 array_push($this->mToClose, "");
             } else {
-                $container = "<div class=\"form-group\">\n";
+                $container = "<div class=\"container\">\n";
                 array_push($this->mToClose, "</div>\n");
 
-                $elemcon = "<div class=\"col-md-8\">\n";
-                array_push($this->mToClose, "</div>\n");
-
-                $element .= " class=\"form-control\">";
+                $element .= " class=\"formElement\">";
                 array_push($this->mToClose, "</{$tag}>\n");
             }
-
-            $form .= $container . $label . $elemcon . $element . $options . $text . array_pop($this->mToClose) . array_pop($this->mToClose) . $infobtn . array_pop($this->mToClose);
+            $form .= $container . $label . $element . $options . $text . array_pop($this->mToClose) . $infobtn . array_pop($this->mToClose);
         }
         return $form;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function render_js() {
+        $ret = "<script type=\"text/javascript\">$('[data-toggle=\"popover\"]').popover();</script>";
+        return $ret;
     }
 }
