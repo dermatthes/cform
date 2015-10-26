@@ -65,7 +65,7 @@ return [
          ->outPart(["button"]) ?>
 </form>
 ```
-Die Methode 'outPart()' gibt alle erstellten Form-Elemente ohne die umgebenden <form>-Tags aus, diese müssen manuell 
+Die Methode 'outPart()' gibt alle erstellten Form-Elemente ohne die umgebenden Form-Tags aus, diese müssen manuell 
 geschrieben werden. Anschließend wird die Liste der erstellten Elemente zurückgesetzt.
 
 ## Available Renderers
@@ -84,5 +84,5 @@ funktionieren.
 ```
 "<script type=\"text/javascript\">$('[data-toggle=\"popover\"]').popover();</script>"
 ```
-
-
+Die Methode 'outButtons()' gibt nur die Buttons aus, die bis zu dem Zeitpunkt des Aufrufs der Methode zu dem Formular 
+hinzugefügt wurden.
