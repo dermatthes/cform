@@ -27,7 +27,7 @@ $form->setAction("#")->setMethod("post")
 ->out();
 ```
 
-## Beispiel Laden aus Datei
+## Beispiel: Laden aus Datei
 
 ```
 $form = new CForm(new CFormBootstrapRenderer());
@@ -49,6 +49,24 @@ return [
 ];
 ```
 
+## Beispiel: Formular mit Teilausgaben
+
+```
+<form action="#" method="post">
+<?php
+    $form = new CForm(new CFormSimpleRenderer());
+    $form->addInput(["name" => "input", "id" => "1234", "type" => "text", "value" => "Insert Name"])
+         ->setLabel("Name")->addDiscription("Dies ist ein Test")
+         ->outPart();
+    $form->addSelect(["@label" => "Age", "name" => "select", "id" => "abcd", "options" => ["young" => "21-35", "middle" => "36-55", "old" => "59-80"]])
+         ->setValue("middle")
+         ->addHTMLCode("<br /><br /><br /><h1>Code between...</h1>")
+         ->addButton(["id" => "button", "name" => "btn", "type" => "submit"], "Display")
+         ->outPart(["button"]) ?>
+</form>
+```
+Die Methode 'outPart()' gibt alle erstellten Form-Elemente ohne die umgebenden <form>-Tags aus, diese müssen manuell 
+geschrieben werden. Anschließend wird die Liste der erstellten Elemente zurückgesetzt.
 
 ## Available Renderers
 
@@ -57,3 +75,14 @@ return [
 | Bootstrap   | `CFormBootstrapRenderer` |                |
 | Plain Table | `CFormTableRenderer`     |                |
 |             |                          |                |
+
+## Weitere Ausgabe-Methoden
+
+Die Methode 'outJavaScript()' sollte am Ende des Dokuments aufgerufen werden. Sie gibt den im Renderer definierten
+JavaScript-Code aus, der unter anderem notwendig ist, damit die Info-Buttons zum Anzeigen der Beschreibung eines Feldes
+funktionieren.
+```
+"<script type=\"text/javascript\">$('[data-toggle=\"popover\"]').popover();</script>"
+```
+
+
