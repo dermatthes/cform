@@ -82,7 +82,7 @@ Die Methode 'outJavaScript()' sollte am Ende des Dokuments aufgerufen werden. Si
 JavaScript-Code aus, der unter anderem notwendig ist, damit die Info-Buttons zum Anzeigen der Beschreibung eines Feldes
 funktionieren.
 ```
-"<script type=\"text/javascript\">$('[data-toggle=\"popover\"]').popover();</script>"
+<script type=\"text/javascript\">$('[data-toggle=\"popover\"]').popover();</script>
 ```
 Die Methode 'outButtons()' gibt nur die Buttons aus, die bis zu dem Zeitpunkt des Aufrufs der Methode zu dem Formular 
 hinzugefügt wurden.
