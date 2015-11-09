@@ -6,6 +6,8 @@
  * Date: 02.10.15
  * Time: 14:34
  */
+namespace cform;
+
 class CForm {
 
     /**

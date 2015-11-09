@@ -6,6 +6,8 @@
  * Date: 26.10.15
  * Time: 10:22
  */
+namespace cform;
+
 class CFormSimpleRenderer implements CFormRenderer {
 
     private $mToClose = [];

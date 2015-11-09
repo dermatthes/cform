@@ -1,0 +1,91 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!--
+    $Id$
+
+
+-->
+
+<project  name="cform" basedir="." default="main">
+    <tstamp>
+        <!-- Format is, e.g. Sat, 03 Oct 2009, 16:31 -->
+        <format property="buildtime" pattern=" %d.%m.%Y %H:%M"/>
+    </tstamp>
+    <tstamp>
+        <format property="buildts" pattern="%Y%m%d"/>
+    </tstamp>
+
+    <target name="clean">
+        <delete file="_build/cform.phar.php"/>
+        <delete dir="./_stage"/>
+    </target>
+
+
+    <target name="phpunit">
+        <echo msg="Running Unit Tests in /test with bootstrap /test/boostrap.inc.php" />
+        <!--phpunit haltonfailure="true" printsummary="true" bootstrap="test/bootstrap.inc.php">
+            <batchtest>
+                <fileset dir="test/">
+                    <include name="**/*Test.php" />
+                    <include name="**/*Test.class.php" />
+                </fileset>
+            </batchtest>
+        </phpunit-->
+    </target>
+
+
+    <target name="copy_main_files_to_stage" depends="clean">
+        <mkdir dir="./_stage/cform"/>
+        <copy todir="./_stage/cform">
+            <fileset dir="./src/">
+                <include name="**"/>
+            </fileset>
+            <fileset dir="./">
+                <include name="README.md"/>
+                <include name="LICENSE"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="build_src_tarball" depends="copy_main_files_to_stage, phpunit">
+        <mkdir dir="./_build"/>
+        <delete file="_build/cform.recent.src.tar.gz"/>
+
+        <tar compression="gzip" destfile="_build/cform.recent.src.tar.gz">
+            <fileset dir="./_stage/">
+                <filename name="**" />
+            </fileset>
+        </tar>
+    </target>
+
+
+
+    <target name="build_phar" depends="copy_main_files_to_stage, phpunit">
+        <mkdir dir="./_build"/>
+        <pharpackage destfile="./_build/cform.phar.php" basedir="./_stage/cform" stub="./xsrc/pharStub.php">
+            <fileset dir="./_stage/cform">
+                <include name="**" />
+            </fileset>
+        </pharpackage>
+    </target>
+
+
+    <target name="build_phar_gzip" depends="build_phar">
+        <delete file="_build/cform.recent.phar.php.gz"/>
+        <tar compression="gzip" destfile="_build/cform.recent.phar.php.gz">
+            <fileset dir="./_build/">
+                <filename name="cform.phar.php" />
+            </fileset>
+        </tar>
+    </target>
+
+
+    <target name="main" depends="build_phar_gzip, build_src_tarball" description="Generate local build from sources build directory">
+
+        <!-- <copy file="_build/cform.recent.phar.php.gz" tofile="_build/cform.${buildts}.phar.php.gz" /> -->
+        <phingcall target="clean"/>
+    </target>
+
+
+
+
+</project>
