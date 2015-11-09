@@ -36,10 +36,9 @@
     <target name="copy_main_files_to_stage" depends="clean">
         <mkdir dir="./_stage/cform"/>
         <copy todir="./_stage/cform">
-            <fileset dir="./src/">
-                <include name="**"/>
-            </fileset>
             <fileset dir="./">
+                <include name="src/**"/>
+                <include name="autoload.php"/>
                 <include name="README.md"/>
                 <include name="LICENSE"/>
             </fileset>
